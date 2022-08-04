@@ -20,9 +20,9 @@ def get_random_word(path):
     
 def find_sentence (word,guess_char):
     hiden_word= ''
-    for c in word: 
-        if c in guess_char:
-            hiden_word += c
+    for letter in word: 
+        if letter in guess_char:
+            hiden_word += letter
         else:
             hiden_word += '-'
-        return hiden_word
+    return hiden_word

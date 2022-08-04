@@ -4,5 +4,6 @@ __pycache__
 .pytest_cache
 words.txt
 hangman-s
-test_secret_letter.py
-hang.py
+test_rought.py
+rought.py
+
