@@ -15,14 +15,14 @@ def get_random_word(path):
         if word[0].isupper():
             continue
         rand_word.append(word)
-        
+
     return random.choice(rand_word)
     
-def find_sentence (word,epty):
+def find_sentence (word,guess_char):
     hiden_word= ''
     for c in word: 
-        if c in epty:
+        if c in guess_char:
             hiden_word += c
         else:
             hiden_word += '-'
-    return hiden_word
+        return hiden_word
