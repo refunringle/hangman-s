@@ -29,27 +29,27 @@ def hidden_word (word,guess_char):
 
 
 def get_status(secret_word, guesses, turns_left):
-    masked_word = hidden_word(secret_word, guesses)
-    return f"""Word : {masked_word}
+    return f"""Word : {hidden_word(secret_word, guesses)}
 Turns left : {turns_left}"""
 
-def evaluate_input(secret_word, guesses, turns_left, input_):
+
+def process_input(secret_word, guesses, turns_left, input_):
     if input_ in guesses:
-        return f"You already guessed '{input_}'", turns_left
+        return f"YOU ALLREADY GUESSED '{input_}'", turns_left
     
-    if "-" not in hidden_word(secret_word, guesses+[input_]):
-        return "word has been guessed", turns_left
+    elif "-" not in hidden_word(secret_word, guesses+[input_]):
+        return "YOU WIN", turns_left
 
-    if input_ in secret_word:
+    elif input_ in secret_word:
         guesses.append(input_)
-        return "good guess", turns_left
+        return "NICE", turns_left
 
-    if input_ not in secret_word:
+    elif input_ not in secret_word:
         if turns_left == 1:
-            return "game is over", turns_left
+            return "YOU LOSE", turns_left, 
         else:
             guesses.append(input_)
-            return "bad guess", turns_left - 1
+            return "OOPS! TRY MORE",turns_left - 1
 
 def hangman():
     secret_word = get_random_word(path)
@@ -57,12 +57,12 @@ def hangman():
     guesses = []
     turns_left = 7
     status = ""
-    while status not in ["word has been guessed", "game is over"]:
+    while status not in ["YOU WIN", "YOU LOSE"]:
         print ("\n", status)
         print (get_status(secret_word, guesses, turns_left))
-        guess = input("Enter a letter ")
+        guess = input("Guess a letter:").lower()
         print (f'"{guess}"')
-        status, turns_left = evaluate_input(secret_word, guesses, turns_left, guess)
+        status, turns_left = process_input(secret_word, guesses, turns_left, guess)
 
 if __name__ == "__main__":
     hangman()

@@ -1,5 +1,4 @@
 import random
-
 import hangman
 
 random.seed(8)
@@ -54,60 +53,55 @@ def test_mark_word_invalid_guesses():
 
 
 def test_get_status():
-    secret_word = "aeroplane"
-    guesses = ['x', 't', 'p', 'a']
+    secret_word = "itsrefun"
+    guesses = ['n', 'i', 'p', 'a']
     status = hangman.get_status(secret_word, guesses, 5)
-    assert status == f"""Word : a---p-a--
+    assert status == f"""Word : i------n
 Turns left : 5"""
 
 
 def test_evaluate_input_word_guessed():
-    secret_word = "cat"
-    guesses = ["c", "a", "x", "m"]
+    secret_word = "red"
+    guesses = ["e", "a", "d", "m"]
     turns_left = 5
-    input_ = "t"
-    resp, turns_left = hangman.evaluate_input(secret_word, guesses, turns_left, input_)
+    input_ = "r"
+    resp, turns_left = hangman.process_input(secret_word, guesses, turns_left, input_)
     assert turns_left == 5
-    assert resp == "word has been guessed"
+    assert resp == "YOU WIN"
     
 def test_evaluate_input_bad_guess():
-    secret_word = "cat"
-    guesses = ["c", "a", "x", "m"]
+    secret_word = "black"
+    guesses = ["b", "a", "x", "m"]
     turns_left = 5
     input_ = "q"
-    resp, turns_left = hangman.evaluate_input(secret_word, guesses, turns_left, input_)
-    assert resp == "bad guess"
-    assert guesses == ["c", "a", "x", "m", "q"]
+    resp, turns_left = hangman.process_input(secret_word, guesses, turns_left, input_)
+    assert resp == "OOPS! TRY MORE"
+    assert guesses == ["b", "a", "x", "m", "q"]
     assert turns_left == 4
 
     
 def test_evaluate_input_game_over():
-    secret_word = "cat"
-    guesses = ["c", "a", "x", "m"]
+    secret_word = "pink"
+    guesses = ["c", "i", "x", "k"]
     turns_left = 1
     input_ = "q"
-    resp, _ = hangman.evaluate_input(secret_word, guesses, turns_left, input_)
-    assert resp == "game is over"
+    resp, _ = hangman.process_input(secret_word, guesses, turns_left, input_)
+    assert resp == "YOU LOSE"
 
 def test_evaluate_input_repeat_guess():
-    secret_word = "cat"
-    guesses = ["c", "a", "x", "m"]
+    secret_word = "yellow"
+    guesses = ["c", "y", "o", "m"]
     turns_left = 5
     input_ = "c"
-    resp, turns_left = hangman.evaluate_input(secret_word, guesses, turns_left, input_)
+    resp, turns_left = hangman.process_input(secret_word, guesses, turns_left, input_)
     assert turns_left == 5
-    assert resp == "You already guessed 'c'"
+    assert resp == "YOU ALLREADY GUESSED 'c'"
 
 def test_evaluate_input_good_guess():
-    secret_word = "cat"
-    guesses = ["c", "x", "m"]
+    secret_word = "blue"
+    guesses = ["e", "u", "m"]
     turns_left = 5
-    input_ = "a"
-    resp, turns_left = hangman.evaluate_input(secret_word, guesses, turns_left, input_)
-    assert resp == "good guess"
+    input_ = "b"
+    resp, turns_left = hangman.process_input(secret_word, guesses, turns_left, input_)
+    assert resp == "NICE"
     assert turns_left == 5
-
-
-    
-
-
