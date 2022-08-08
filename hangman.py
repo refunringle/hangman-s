@@ -39,17 +39,18 @@ def process_input(secret_word, guesses, turns_left, input_):
     
     elif "-" not in hidden_word(secret_word, guesses+[input_]):
         return "YOU WIN", turns_left
+    elif turns_left == 1:
+        return "YOU LOSE", turns_left 
 
     elif input_ in secret_word:
         guesses.append(input_)
         return "NICE", turns_left
 
-    elif input_ not in secret_word:
-        if turns_left == 1:
-            return "YOU LOSE", turns_left, 
-        else:
-            guesses.append(input_)
-            return "OOPS! TRY MORE",turns_left - 1
+    #elif input_ not in secret_word:
+
+    else:
+        guesses.append(input_)
+        return "OOPS! TRY MORE", turns_left - 1
 
 def hangman():
     secret_word = get_random_word(path)
@@ -66,5 +67,3 @@ def hangman():
 
 if __name__ == "__main__":
     hangman()
-
-        
