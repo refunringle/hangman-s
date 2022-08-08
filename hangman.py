@@ -38,13 +38,16 @@ def process_input(secret_word, guesses, turns_left, input_):
         return f"YOU ALLREADY GUESSED '{input_}'", turns_left
     
     elif "-" not in hidden_word(secret_word, guesses+[input_]):
+        print('you win man!')
         return "YOU WIN", turns_left
+    
     elif turns_left == 1:
+        print('HA HA! you lose buddy :)')
         return "YOU LOSE", turns_left 
 
     elif input_ in secret_word:
         guesses.append(input_)
-        return "NICE", turns_left
+        return "NICE TRY", turns_left
 
     #elif input_ not in secret_word:
 
@@ -62,7 +65,7 @@ def hangman():
         print ("\n", status)
         print (get_status(secret_word, guesses, turns_left))
         guess = input("Guess a letter:").lower()
-        print (f'"{guess}"')
+       # print (f'"{guess}"')
         status, turns_left = process_input(secret_word, guesses, turns_left, guess)
 
 if __name__ == "__main__":

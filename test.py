@@ -103,5 +103,5 @@ def test_evaluate_input_good_guess():
     turns_left = 5
     input_ = "b"
     resp, turns_left = hangman.process_input(secret_word, guesses, turns_left, input_)
-    assert resp == "NICE"
+    assert resp == "NICE TRY"
     assert turns_left == 5
