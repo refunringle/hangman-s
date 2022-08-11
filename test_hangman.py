@@ -42,14 +42,14 @@ def test_get_random_word():
 
 def test_get_secret_word():
     my_word ='elephant'
-    assert hangman.hidden_word(my_word,[]) == '--------'
-    assert hangman.hidden_word(my_word,['e']) == 'e-e-----'
-    assert hangman.hidden_word(my_word,['e','a']) == 'e-e--a--'
-    assert hangman.hidden_word(my_word,['e','a','x']) == 'e-e--a--'
+    assert hangman.hide_word(my_word,[]) == '--------'
+    assert hangman.hide_word(my_word,['e']) == 'e-e-----'
+    assert hangman.hide_word(my_word,['e','a']) == 'e-e--a--'
+    assert hangman.hide_word(my_word,['e','a','x']) == 'e-e--a--'
 
 def test_mark_word_invalid_guesses():
     for i in ["police", "elephant", "it", "foo"]:
-        assert hangman.hidden_word(i, ["x", "q"]) == len(i)*"-"
+        assert hangman.hide_word(i, ["x", "q"]) == len(i)*"-"
 
 
 def test_get_status():
@@ -95,7 +95,7 @@ def test_evaluate_input_repeat_guess():
     input_ = "c"
     resp, turns_left = hangman.process_input(secret_word, guesses, turns_left, input_)
     assert turns_left == 5
-    assert resp == "YOU ALLREADY GUESSED 'c'"
+    assert resp == "YOU ALREADY GUESSED 'c'"
 
 def test_evaluate_input_good_guess():
     secret_word = "blue"

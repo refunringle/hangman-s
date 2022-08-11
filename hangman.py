@@ -1,8 +1,6 @@
 import random
 
-path= "/usr/share/dict/words"
-
-def get_random_word(path):
+def get_random_word(path= "/usr/share/dict/words"):
     words=list(open(path))
     rand_word=[]
 
@@ -18,7 +16,7 @@ def get_random_word(path):
 
     return random.choice(rand_word)
     
-def hidden_word (word,guess_char):
+def hide_word (word,guess_char):
     hiden_word= ''
     for letter in word: 
         if letter in guess_char:
@@ -29,15 +27,15 @@ def hidden_word (word,guess_char):
 
 
 def get_status(secret_word, guesses, turns_left):
-    return f"""Word : {hidden_word(secret_word, guesses)}
+    return f"""Word : {hide_word(secret_word, guesses)}
 Turns left : {turns_left}"""
 
 
 def process_input(secret_word, guesses, turns_left, input_):
     if input_ in guesses:
-        return f"YOU ALLREADY GUESSED '{input_}'", turns_left
+        return f"YOU ALREADY GUESSED '{input_}'", turns_left
     
-    elif "-" not in hidden_word(secret_word, guesses+[input_]):
+    elif "-" not in hide_word(secret_word, guesses+[input_]):
         print('you win man!')
         return "YOU WIN", turns_left
     
@@ -55,8 +53,8 @@ def process_input(secret_word, guesses, turns_left, input_):
         guesses.append(input_)
         return "OOPS! TRY MORE", turns_left - 1
 
-def hangman():
-    secret_word = get_random_word(path)
+def main():
+    secret_word = get_random_word()
     print (secret_word)
     guesses = []
     turns_left = 7
@@ -69,4 +67,4 @@ def hangman():
         status, turns_left = process_input(secret_word, guesses, turns_left, guess)
 
 if __name__ == "__main__":
-    hangman()
+    main()
